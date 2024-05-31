@@ -18,5 +18,5 @@ def send(msg):
     client.send(send_length)
     client.send(message)
 
-send("HELLO SERVER!")
+send("HELLO SERVER I AM A NEW CLIENT CAN YOU HACK ME!")
 
