@@ -28,7 +28,7 @@ def handle_client(conn, addr):
                 if msg == DISCONNECT_MESSAGE:
                     connected = False
                 print(f"[{addr}] {msg}")
-                send_to_all_clients(f"[{addr}] {msg}")
+                #send_to_all_clients(f"[{addr}] {msg}")
         except:
             connected = False
     conn.close()
@@ -63,12 +63,12 @@ def start():
 def server_send_messages():
     
     while True:
-        message = input()
+        message = input("[SERVER] >>> ")
         if message == DISCONNECT_MESSAGE:
             for client in clients:
                 send_to_client(client, DISCONNECT_MESSAGE)
             break
-        send_to_all_clients(f"[SERVER] {message}")
+        send_to_all_clients(message)
 
 if __name__ == "__main__":
     print("[STARTING] Server is starting...")

