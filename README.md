@@ -1,6 +1,6 @@
-# Socket_programming
+# Project BalckHat
 
-# Socket Chat & File Transfer Server 📡
+# BlackHat 📡
 
 Welcome to the **BlackHat** project! This project demonstrates a simple yet powerful multi-client chat server with file transfer capabilities, built using Python's socket and threading modules. Below, you'll find an overview of the features, setup instructions, and how to use the application.
 
@@ -77,9 +77,7 @@ socket-chat-file-transfer/
 ## Contributions 🤝
 Contributions are welcome! Feel free to submit a pull request or open an issue if you have any suggestions or find any bugs.
 
----
-
-Happy chatting and file transferring! 🌐📁🚀
+🌐📁🚀
 
 ---
 
