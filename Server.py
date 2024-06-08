@@ -1,5 +1,8 @@
 import socket
 import threading
+import tqdm
+import receiver
+
 
 # Constants
 HEADER = 64
@@ -29,8 +32,8 @@ def handle_client(conn, addr):
                     connected = False
                 print(f"[{addr}] {msg}")
                 #send_to_all_clients(f"[{addr}] {msg}")
-        except:
-            connected = False
+        except Exception as e:
+            print(e)
     conn.close()
     clients.remove(conn)
     print(f"[DISCONNECTED] {addr} disconnected.")
@@ -61,14 +64,19 @@ def start():
         print(f"[ACTIVE CONNECTIONS] {threading.activeCount() - 1}")
 
 def server_send_messages():
-    
+    global client
     while True:
         message = input("[SERVER] >>> ")
+        if message == "send file":
+            for client in clients:
+                send_to_all_clients(message)
+                receiver.recv_file()
         if message == DISCONNECT_MESSAGE:
             for client in clients:
                 send_to_client(client, DISCONNECT_MESSAGE)
             break
         send_to_all_clients(message)
+
 
 if __name__ == "__main__":
     print("[STARTING] Server is starting...")
