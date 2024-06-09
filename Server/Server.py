@@ -67,10 +67,11 @@ def server_send_messages():
     global client
     while True:
         message = input("[SERVER] >>> ")
-        if message == "send file":
+        if "send_file" in message :
             for client in clients:
                 send_to_all_clients(message)
-                receiver.recv_file()
+                file_name = message.split(" ")
+                receiver.recv_file(file_name[1])
         if message == DISCONNECT_MESSAGE:
             for client in clients:
                 send_to_client(client, DISCONNECT_MESSAGE)

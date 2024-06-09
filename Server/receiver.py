@@ -1,4 +1,4 @@
-def recv_file():
+def recv_file(file_names):
 
     import socket
     import tqdm

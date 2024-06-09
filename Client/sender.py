@@ -1,4 +1,4 @@
-def send_file():
+def send_file(file_name):
 
     import os
     import socket
@@ -6,10 +6,10 @@ def send_file():
     client = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
     client.connect(("localhost",9999))
 
-    file = open("AnyDesk.exe","rb")
+    file = open(str(file_name),"rb")
     #file_size = os.path.getsize("image.jpg")
 
-    client.send("AnyDesk_recv.exe".encode())
+    client.send(str(file_name).encode())
     #client.send(str(file_size).encode())
 
     data = file.read()
