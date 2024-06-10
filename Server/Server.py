@@ -2,6 +2,21 @@ import socket
 import threading
 import tqdm
 import receiver
+from colorama import init, Fore
+
+# Initialize colorama
+init()
+
+# Print the text in green color
+print(Fore.GREEN + ".......................................................................................")
+print(Fore.GREEN + "..######....##...........#.......#######..##...##..##.......##.....#.....###########...")
+print(Fore.GREEN + "..##....##..##..........###....##.........##..##...##.......##....###....###########...")
+print(Fore.GREEN + "..##....##..##.........##.##...##.........##.##....##.......##...## ##........##.......")
+print(Fore.GREEN + "..######....##........#######..##.........####.....###########..#######.......##.......")
+print(Fore.GREEN + "..##....##..##........##...##..##.........####.....##.......##..##...##.......##.......")
+print(Fore.GREEN + "..##....##..########..##...##..##.........##.##....##.......##..##...##.......##.......")
+print(Fore.GREEN + "..######....########..##...##....#######..##..##...##.......##..##...##.......##.......")
+print(Fore.GREEN + ".......................................................................................")
 
 
 # Constants
@@ -30,7 +45,7 @@ def handle_client(conn, addr):
                 msg = conn.recv(msg_length).decode(FORMAT)
                 if msg == DISCONNECT_MESSAGE:
                     connected = False
-                print(f"[{addr}] {msg}")
+                print(Fore.RED+ f"[{addr}] {msg}")
                 #send_to_all_clients(f"[{addr}] {msg}")
         except Exception as e:
             print(e)
