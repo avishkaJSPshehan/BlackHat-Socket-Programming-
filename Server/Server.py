@@ -8,15 +8,16 @@ from colorama import init, Fore
 init()
 
 # Print the text in green color
-print(Fore.GREEN + ".......................................................................................")
-print(Fore.GREEN + "..######....##...........#.......#######..##...##..##.......##.....#.....###########...")
-print(Fore.GREEN + "..##....##..##..........###....##.........##..##...##.......##....###....###########...")
-print(Fore.GREEN + "..##....##..##.........##.##...##.........##.##....##.......##...## ##........##.......")
-print(Fore.GREEN + "..######....##........#######..##.........####.....###########..#######.......##.......")
-print(Fore.GREEN + "..##....##..##........##...##..##.........####.....##.......##..##...##.......##.......")
-print(Fore.GREEN + "..##....##..########..##...##..##.........##.##....##.......##..##...##.......##.......")
-print(Fore.GREEN + "..######....########..##...##....#######..##..##...##.......##..##...##.......##.......")
-print(Fore.GREEN + ".......................................................................................")
+print(Fore.GREEN + "\t........................................................................................")
+print(Fore.GREEN + "\t...######....##...........#.......#######..##...##..##.......##.....#.....###########...")
+print(Fore.GREEN + "\t...##....##..##..........###....##.........##..##...##.......##....###....###########...")
+print(Fore.GREEN + "\t...##....##..##.........##.##...##.........##.##....##.......##...## ##........##.......")
+print(Fore.GREEN + "\t...######....##........#######..##.........####.....###########..#######.......##.......")
+print(Fore.GREEN + "\t...##....##..##........##...##..##.........####.....##.......##..##...##.......##.......")
+print(Fore.GREEN + "\t...##....##..########..##...##..##.........##.##....##.......##..##...##.......##.......")
+print(Fore.GREEN + "\t...######....########..##...##....#######..##..##...##.......##..##...##.......##.......")
+print(Fore.GREEN + "\t........................................................................................")
+
 
 
 # Constants
@@ -27,6 +28,9 @@ ADDR = (SERVER, PORT)
 FORMAT = "utf-8"
 DISCONNECT_MESSAGE = "!DISCONNECT"
 
+print(Fore.CYAN + f"\n\t\t\tSERVER IS STARTING.. AND LISTENING ON {SERVER}")
+print(Fore.CYAN + f"\n\t\t\t\tHOST IP\t\t:\t{SERVER}")
+print(Fore.CYAN + f"\t\t\t\tHOST NAME\t:\t{socket.gethostname()}")
 # Server setup
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(ADDR)
@@ -35,7 +39,7 @@ clients = []
 
 def handle_client(conn, addr):
     
-    print(f"[NEW CONNECTION] {addr} connected.")
+    print(Fore.CYAN + f"\t\t\t\tNEW CONNECTION\t:\t{addr} CONNECTED.")
     connected = True
     while connected:
         try:
@@ -68,20 +72,21 @@ def send_to_all_clients(msg):
         send_to_client(client, msg)
 
 def start():
-    
     server.listen()
-    print(f"[LISTENING] Server is listening on {SERVER}")
+    #print(f"[LISTENING] Server is listening on {SERVER}")
     while True:
         conn, addr = server.accept()
         clients.append(conn)
         thread = threading.Thread(target=handle_client, args=(conn, addr))
         thread.start()
-        print(f"[ACTIVE CONNECTIONS] {threading.activeCount() - 1}")
-
+        print(Fore.CYAN + f"\t\t\t\tACTIVE CONN\t:\t{threading.activeCount() - 1}")
+        print(Fore.GREEN + f"\t\t\t\t--------------------------------------------------")
+        if((threading.activeCount() - 1) >=2 ):
+            server_send_messages()
 def server_send_messages():
     global client
     while True:
-        message = input("[SERVER] >>> ")
+        message = input("[SERVER@WINDOWS] [~] >>> ")
         if "send_file" in message :
             for client in clients:
                 send_to_all_clients(message)
@@ -95,6 +100,7 @@ def server_send_messages():
 
 
 if __name__ == "__main__":
-    print("[STARTING] Server is starting...")
+    #print("[STARTING] Server is starting...")
     threading.Thread(target=start).start()
-    server_send_messages()
+    
+    
