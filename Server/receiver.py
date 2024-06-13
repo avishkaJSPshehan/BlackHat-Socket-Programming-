@@ -11,7 +11,7 @@ def recv_file(file_names):
 
 
     file_name = client.recv(1024).decode()
-    print(file_name)
+    #print(file_name)
     #file_size = client.recv(1024).decode()
     #print(file_size)
 

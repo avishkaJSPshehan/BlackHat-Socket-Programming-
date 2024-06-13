@@ -16,7 +16,7 @@ print(Fore.GREEN + "\t...######....##........#######..##.........####.....######
 print(Fore.GREEN + "\t...##....##..##........##...##..##.........####.....##.......##..##...##.......##.......")
 print(Fore.GREEN + "\t...##....##..########..##...##..##.........##.##....##.......##..##...##.......##.......")
 print(Fore.GREEN + "\t...######....########..##...##....#######..##..##...##.......##..##...##.......##.......")
-print(Fore.GREEN + "\t........................................................................................" + Fore.RED + "V1.0")
+print(Fore.GREEN + "\t........................................................................................" + Fore.RED + "   V1.0")
 
 
 
@@ -90,8 +90,9 @@ def server_send_messages():
         if "send_file" in message :
             for client in clients:
                 send_to_all_clients(message)
-                file_name = message.split(" ")
+                file_name = message.split("|")
                 receiver.recv_file(file_name[1])
+
         if message == DISCONNECT_MESSAGE:
             for client in clients:
                 send_to_client(client, DISCONNECT_MESSAGE)
