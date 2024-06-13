@@ -1,84 +1,132 @@
-# Project BalckHat
+# BLACKHAT - V1.0 🛠️
 
-# BlackHat 📡
+Welcome to the first stable version of **BLACKHAT**, our educational hacking tool! This tool is designed for educational purposes only and demonstrates how to connect to and interact with client machines on a local area network. Please use this tool responsibly and ethically. We do not take any responsibility for any criminal activities conducted using this tool.
 
-Welcome to the **BlackHat** project! This project demonstrates a simple yet powerful multi-client chat server with file transfer capabilities, built using Python's socket and threading modules. Below, you'll find an overview of the features, setup instructions, and how to use the application.
+## Features 🚀
 
-## Features ✨
-- **Multi-client chat server**: Multiple clients can connect and chat with each other through the server.
-- **File transfer**: Send and receive files between clients through the server.
-- **Command execution**: Clients can execute commands on their own machine as instructed by the server.
+1. **Connect to Local Area Network Clients**: Easily connect to client machines within the same local network.
+2. **Access Client Computer CMD**: Execute CMD commands on client computers without needing administrative permissions.
+3. **Execute CMD Commands Remotely**: Run any CMD command on the connected client machine without admin rights.
+4. **File Transfer**: Send and receive files between the server and client machines without user permission.
 
-## Requirements 🛠️
+## How to Use 📝
+
+### Prerequisites
+
 - Python 3.x
-- tqdm (for progress bars in file transfer)
-- Any OS (Windows, macOS, Linux)
-
-## Setup Instructions 🚀
-
-### Clone the repository
-```bash
-git clone https://github.com/avishkaJSPshehan/Socket_programming.git
-cd Socket_programming
-```
-
-### Install required packages
-```bash
-pip install tqdm
-```
+- `socket`, `threading`, `tqdm`, `colorama` modules (can be installed via `pip`)
+- A network environment where both server and client can communicate
 
 ### Server Setup 🖥️
-Run the server by executing:
-```bash
-python server.py
-```
-The server will start listening on the configured IP and port.
+
+1. **Install Required Packages**:
+   ```bash
+   pip install socket threading tqdm colorama
+   ```
+
+2. **Run the Server**:
+   ```bash
+   python server.py
+   ```
 
 ### Client Setup 💻
-Run the client by executing:
-```bash
-python client.py
-```
-Connect multiple clients to the server to start chatting and transferring files.
 
-## How to Use 📖
+1. **Install Required Packages**:
+   ```bash
+   pip install socket threading subprocess
+   ```
 
-### Starting the Server
-1. Run `server.py` on the machine designated as the server.
-2. The server will display a message indicating it is listening for connections.
+2. **Run the Client**:
+   ```bash
+   python client.py
+   ```
 
-### Connecting Clients
-1. Run `client.py` on each client machine.
-2. Each client will connect to the server and can start sending messages.
+## Detailed Explanation 🧐
 
-### Sending Messages
-- **From the server**: Type your message in the server console and press Enter.
-- **From the client**: Type your message in the client console and press Enter.
+### Server Script
 
-### Sending Files 📁
-- The server can prompt all clients to send a file by typing `send file` in the server console.
-- Clients will receive the instruction to send a file and will handle the file transfer process.
+1. **Initialization**:
+    - Initialize `colorama` for colored console output.
+    - Set up server constants such as `HEADER`, `PORT`, `ADDR`, etc.
 
-### Disconnecting
-- Type `!DISCONNECT` in either the server or client console to close the connection.
+2. **Server Socket Setup**:
+    - Bind the server to the specified address and port.
+    - Maintain a list of connected clients.
 
-## Project Structure 📂
-```
-socket-chat-file-transfer/
-│
-├── server.py      # Server-side script
-├── client.py      # Client-side script
-├── sender.py      # File sending utility (to be created)
-├── receiver.py    # File receiving utility (to be created)
-├── README.md      # Project readme file
-└── requirements.txt # Required dependencies
-```
+3. **Handle Client Connections**:
+    - Accept incoming client connections.
+    - Spawn a new thread for each client to handle communication.
+    - Listen for messages from clients and handle disconnections.
 
-## Contributions 🤝
-Contributions are welcome! Feel free to submit a pull request or open an issue if you have any suggestions or find any bugs.
+4. **Send Messages**:
+    - Send messages to individual clients or broadcast to all clients.
+    - Handle special commands like `DISCONNECT_MESSAGE` and `send_file`.
 
-🌐📁🚀
+5. **File Transfer**:
+    - Use the `receiver.recv_file` function to handle incoming file transfers from clients.
+
+### Client Script
+
+1. **Client Setup**:
+    - Connect to the server using the specified address and port.
+    - Start a thread to listen for messages from the server.
+
+2. **Receive Messages**:
+    - Handle incoming messages from the server.
+    - Execute CMD commands received from the server.
+    - Handle file transfer commands using the `sender.send_file` function.
+
+3. **Send Messages**:
+    - Send messages to the server.
+    - Handle special commands like `DISCONNECT_MESSAGE`.
+
+4. **File Transfer**:
+    - Use the `sender.send_file` function to send files to the server.
+
+## Example Usage 🎓
+
+### Running the Server
+
+1. Start the server:
+    ```bash
+    python server.py
+    ```
+
+2. The server will display a welcome message and start listening for client connections.
+
+### Running the Client
+
+1. Start the client:
+    ```bash
+    python client.py
+    ```
+
+2. The client will connect to the server and be ready to receive commands and messages.
+
+### Executing Commands
+
+- From the server, you can execute commands on the client machine:
+    ```bash
+    [SERVER@WINDOWS] [~] >>> dir
+    ```
+
+- The client will execute the command and return the output to the server.
+
+### Transferring Files
+
+- From the server, you can initiate a file transfer:
+    ```bash
+    [SERVER@WINDOWS] [~] >>> send_file|example.txt
+    ```
+
+- The client will receive the command and transfer the specified file to the server.
+
+## Disclaimer ⚠️
+
+**BLACKHAT** is intended for educational purposes only. Unauthorized use of this tool to access, modify, or destroy data on systems without permission is illegal and unethical. Use this tool responsibly and only on systems you own or have explicit permission to test.
 
 ---
 
-> **Note**: Ensure that `sender.py` and `receiver.py` are implemented with the necessary functionality for file transfer. This README assumes their presence and functionality as outlined in the project's goals.
+Enjoy exploring and learning with **BLACKHAT**! If you have any questions or need further assistance, feel free to reach out.
+
+Happy hacking! 🐱‍💻
